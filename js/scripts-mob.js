@@ -5,9 +5,10 @@
 // Datasets for objects, animals, their images, and sound files
 
 const animals = ["bear", "bird", "cat", "chicken", "cow", "dog", "duck", "fish", "fox", "horse", "lion", "monkey", "mouse", "octopus", "pig", "sheep"];
-const rings = ["ring1.mp3", "ring2.mp3", "ring3.mp3"];
-const calloffSounds = ["calloff1.mp3", "calloff2.mp3", "calloff3.mp3"];
-const tunes = ["tune1.mp3", "tune2.mp3", "tune3.mp3"];
+const rings = ["ring1-old-phone.mp3", "ring2-telephone-dial-and-ring.mp3", "ring3-telephone-ring.mp3", "ring4-phone-ringing.mp3", "ring5-classic-telefone.mp3"];
+const notAvailable = "not-available.mp3";
+const calloffSounds = ["end-call1.mp3", "end-call2.mp3", "end-call3.mp3", "end-call4.mp3"];
+const tunes = ["baa-baa-black-sheep.mp3", "happy-birthday-to-you.mp3", "mary-had-a-little-lamb.mp3", "old-macdonald-had-a-farm.mp3", "twinkle-twinkle-little-star.mp3"];
 
 
 // Datasets for response messages or questions
@@ -430,6 +431,61 @@ const playSound = (soundFile) => {
   audio.play();
 };
 
+// Function to play sound and speak messages
+const playSoundAndSpeak = (soundFile, messages) => {
+  const audio = new Audio(`audio/${soundFile}`);
+
+  // Listen for when the audio ends
+  audio.addEventListener('ended', () => {
+    speakMessages(messages);
+  });
+
+  // Handle playback errors
+  audio.addEventListener('error', (e) => {
+    console.error("Error during playback:", e);
+  });
+
+  // Start playback
+  audio.play();     
+};
+
+// Function to speak messages and then play a sound
+const speakMessagesAndPlaySound = (messages, soundFile) => {
+  // Check if the browser supports the Web Speech API
+  if (!('speechSynthesis' in window)) {
+    console.error("Web Speech API is not supported in this browser.");
+    return;
+  }
+
+  // Function to speak a single message part
+  const speakPart = (part) => {
+    return new Promise((resolve) => {
+      const utterance = new SpeechSynthesisUtterance(part);
+      utterance.onend = () => resolve(); // Resolve when speaking ends
+      speechSynthesis.speak(utterance);
+    });
+  };
+
+  // Speak all messages sequentially
+  const speakAllMessages = async () => {
+    for (const message of messages) {
+      await speakPart(message);
+    }
+  };
+
+  // Play the sound after all messages are spoken
+  const playSound = () => {
+    const audio = new Audio(`audio/${soundFile}`);
+    audio.addEventListener('error', (e) => {
+      console.error("Error during playback:", e);
+    });
+    audio.play(); // Start playback
+  };
+
+  // Start the sequence
+  speakAllMessages().then(playSound);
+};
+
 // Functions to read a message array
 function speakMessages(messageParts) {
   if (!('speechSynthesis' in window)) {
@@ -515,17 +571,17 @@ function musicHandler() {
 }
 
 function callHandler() {
-  alert("Call");
-  //const welcome = generateWelcome();
-  //playSound(welcome.ring);
-  //displayMessage(welcome.message);
+  const welcome = generateWelcome();
+  if (Math.random() > 0.1) {
+    playSoundAndSpeak(welcome.ring, welcome.message);
+  } else {
+    playSound(notAvailable);
+  }
 }
 
 function callEndHandler() {
-  alert("End Call");
-  //const goodbye = generateGoodbye();
-  //displayMessage(goodbye.message);
-  //playSound(goodbye.sound);
+  const goodbye = generateGoodbye();
+  speakMessagesAndPlaySound(goodbye.message, goodbye.sound);
 }
 
 function zeroHandler() {
@@ -574,7 +630,7 @@ element.requestFullscreen()
         } else if (action === "music") {
           musicHandler();
         } else if (action === "call") {
-          callEndHandler();
+          callHandler();
         } else if (action === "call-off") {
           callEndHandler();
         } else if (action === "0") {
