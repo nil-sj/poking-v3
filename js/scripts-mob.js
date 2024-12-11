@@ -582,5 +582,11 @@ element.requestFullscreen()
         }
       });
     })
-  );
+  )
+  .catch(function(error) {
+  	// element could not enter fullscreen mode
+  	// error message
+  	console.log(error.message);
+    alert("error");
+  });
 
