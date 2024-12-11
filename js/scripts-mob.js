@@ -557,6 +557,8 @@ function numberHandler(number) {
 ////////////////////////////////////////////////////////////////////
 
 // Event listener for buttons
+document.addEventListener("dblclick", function(event) {
+
 var element = document.querySelector(".toy-mobile");
 
 element.requestFullscreen()
@@ -590,3 +592,4 @@ element.requestFullscreen()
     alert("error");
   });
 
+}, false);
