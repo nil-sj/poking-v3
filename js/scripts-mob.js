@@ -557,24 +557,30 @@ function numberHandler(number) {
 ////////////////////////////////////////////////////////////////////
 
 // Event listener for buttons
-document.querySelectorAll("button").forEach((button) => {
-  button.addEventListener("click", () => {
-    const action = button.getAttribute("data-action");
+var element = document.querySelector(".toy-mobile");
 
-    if (action === "quiz") {
-      quizHandler();
-    } else if (action === "sums") {
-      sumsHandler();
-    } else if (action === "music") {
-      musicHandler();
-    } else if (action === "call") {
-      callEndHandler();
-    } else if (action === "call-off") {
-      callEndHandler();
-    } else if (action === "0") {
-      zeroHandler();
-    } else {
-      numberHandler(+action);
-    }
-  });
-});
+element.requestFullscreen()
+  .then(
+    document.querySelectorAll("button").forEach((button) => {
+      button.addEventListener("click", () => {
+        const action = button.getAttribute("data-action");
+    
+        if (action === "quiz") {
+          quizHandler();
+        } else if (action === "sums") {
+          sumsHandler();
+        } else if (action === "music") {
+          musicHandler();
+        } else if (action === "call") {
+          callEndHandler();
+        } else if (action === "call-off") {
+          callEndHandler();
+        } else if (action === "0") {
+          zeroHandler();
+        } else {
+          numberHandler(+action);
+        }
+      });
+    })
+  );
+
