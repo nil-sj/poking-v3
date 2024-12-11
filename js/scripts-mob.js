@@ -425,28 +425,48 @@ const generateGoodbye = () => ({
   message: getRandomElement(partingMessages)
 });
 
+////////////////////////////////////////////////////////////////////
+//  RESPONDERS /////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+
+let currentAudio = null; // Store reference to the currently playing audio
+
+const stopAllActions = () => {
+  // Stop any ongoing audio playback
+  if (currentAudio) {
+    currentAudio.pause();
+    currentAudio.currentTime = 0; // Reset playback position
+    currentAudio = null; // Clear the reference
+  }
+
+  // Stop any ongoing speech
+  if ('speechSynthesis' in window) {
+    speechSynthesis.cancel(); // Stop any ongoing speech
+  }
+};
+
 // Function to play sounds
 const playSound = (soundFile) => {
-  const audio = new Audio(`audio/${soundFile}`);
-  audio.play();
+  currentAudio = new Audio(`audio/${soundFile}`);
+  currentAudio.play();
 };
 
 // Function to play sound and speak messages
 const playSoundAndSpeak = (soundFile, messages) => {
-  const audio = new Audio(`audio/${soundFile}`);
+  currentAudio = new Audio(`audio/${soundFile}`);
 
   // Listen for when the audio ends
-  audio.addEventListener('ended', () => {
+  currentAudio.addEventListener('ended', () => {
     speakMessages(messages);
   });
 
   // Handle playback errors
-  audio.addEventListener('error', (e) => {
+  currentAudio.addEventListener('error', (e) => {
     console.error("Error during playback:", e);
   });
 
   // Start playback
-  audio.play();     
+  currentAudio.play();     
 };
 
 // Function to speak messages and then play a sound
@@ -475,11 +495,11 @@ const speakMessagesAndPlaySound = (messages, soundFile) => {
 
   // Play the sound after all messages are spoken
   const playSound = () => {
-    const audio = new Audio(`audio/${soundFile}`);
-    audio.addEventListener('error', (e) => {
+    currentAudio = new Audio(`audio/${soundFile}`);
+    currentAudio.addEventListener('error', (e) => {
       console.error("Error during playback:", e);
     });
-    audio.play(); // Start playback
+    currentAudio.play(); // Start playback
   };
 
   // Start the sequence
@@ -566,8 +586,7 @@ function sumsHandler() {
 }
 
 function musicHandler() {
-  alert("Music");
-  //playSound(rings[Math.floor(Math.random() * rings.length)]);
+  playSound(getRandomElement(tunes));
 }
 
 function callHandler() {
@@ -624,18 +643,25 @@ element.requestFullscreen()
         const action = button.getAttribute("data-action");
     
         if (action === "quiz") {
+          stopAllActions();
           quizHandler();
         } else if (action === "sums") {
+          stopAllActions();
           sumsHandler();
         } else if (action === "music") {
+          stopAllActions();
           musicHandler();
         } else if (action === "call") {
+          stopAllActions();
           callHandler();
         } else if (action === "call-off") {
+          stopAllActions();
           callEndHandler();
         } else if (action === "0") {
+          stopAllActions();
           zeroHandler();
         } else {
+          stopAllActions();
           numberHandler(+action);
         }
       });
