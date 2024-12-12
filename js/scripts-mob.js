@@ -445,7 +445,7 @@ const generateGoodbye = () => ({
 
 let currentAudio = null; // Store reference to the currently playing audio
 
-const stopAllActions = () => {
+function stopAllActions() {
   // Stop any ongoing audio playback
   if (currentAudio) {
     currentAudio.pause();
@@ -600,7 +600,9 @@ function displaySumQuestion(left, sign, right) {
 
 function quizHandler() {
   isGameOn = true;
-  stopAllActions();
+  if ('speechSynthesis' in window) {
+    speechSynthesis.cancel(); // Stop any ongoing speech
+  }
   const quizQuestion = getRandomElement(quizQuestions);
   displayForNumbers(quizQuestion.numberofitems, quizQuestion.item);  
   window.currentGameAnswer = quizQuestion.answer;
