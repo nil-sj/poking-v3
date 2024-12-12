@@ -24,7 +24,7 @@ if (isMobileDevice) {
     }, false);
 
 } else {
-    document.getElementById("instruction").textContent = "Let your kiddo press a random key on your keyboard and disover a favorite cartoon animal. You can press " + keyCombination + " to get into or exit out of the fullscreen mode.";
+    document.getElementById("instruction").textContent = "Let your kiddo press a random key on your keyboard and discover a favorite cartoon animal. You can press " + keyCombination + " to get into or exit out of the fullscreen mode.";
 
     if(isChromebook) {
       document.querySelector(".btn").addEventListener("click", function(event) {
