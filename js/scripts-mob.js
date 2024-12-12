@@ -605,11 +605,13 @@ function callEndHandler() {
 }
 
 function zeroHandler() {
-  if (Math.random() > 0.33) {
+  if (Math.random() > 0.4) {
     displayForNumbers(0, "zero");
     speakMessages(getRandomElement(playfulMessagesForZero));
   } else {
-    alert("surprise will be created for zero");
+    const surprise = getRandomElement(randomSurprisesForZero);
+    displayContent("hundred", 1, surprise.object);
+    speakMessages(surprise.message);
   }  
 }
 
