@@ -561,13 +561,11 @@ function displayForNumbers(count, item){
 }
 
 // Function to display messages on the screen
-const displayMessage = (messageParts) => {
+const displayMessage = (message) => {
   screenContent.innerHTML = "";
-  messageParts.forEach(part => {
-    const paragraph = document.createElement("p");
-    paragraph.textContent = part;
-    screenContent.appendChild(paragraph);
-  });
+  const paragraph = document.createElement("p");
+  paragraph.textContent = message;
+  screenContent.appendChild(paragraph);
 };
 
 
@@ -586,10 +584,12 @@ function sumsHandler() {
 }
 
 function musicHandler() {
+  displayContent("hundred", 1, "tune")
   playSound(getRandomElement(tunes));
 }
 
 function callHandler() {
+  displayContent("hundred", 1, "call")
   const welcome = generateWelcome();
   if (Math.random() > 0.1) {
     playSoundAndSpeak(welcome.ring, welcome.message);
@@ -599,6 +599,7 @@ function callHandler() {
 }
 
 function callEndHandler() {
+  displayContent("hundred", 1, "callend")
   const goodbye = generateGoodbye();
   speakMessagesAndPlaySound(goodbye.message, goodbye.sound);
 }
@@ -632,40 +633,44 @@ function numberHandler(number) {
 ////////////////////////////////////////////////////////////////////
 
 // Event listener for buttons
+displayMessage("Double Click Here To Enter Full Screen and Play");
+
 document.addEventListener("dblclick", function(event) {
 
 var element = document.querySelector(".toy-mobile");
 
 element.requestFullscreen()
-  .then(
-    document.querySelectorAll("button").forEach((button) => {
-      button.addEventListener("click", () => {
-        const action = button.getAttribute("data-action");
-    
-        if (action === "quiz") {
-          stopAllActions();
-          quizHandler();
-        } else if (action === "sums") {
-          stopAllActions();
-          sumsHandler();
-        } else if (action === "music") {
-          stopAllActions();
-          musicHandler();
-        } else if (action === "call") {
-          stopAllActions();
-          callHandler();
-        } else if (action === "call-off") {
-          stopAllActions();
-          callEndHandler();
-        } else if (action === "0") {
-          stopAllActions();
-          zeroHandler();
-        } else {
-          stopAllActions();
-          numberHandler(+action);
-        }
+  .then(() => {
+      displayMessage("Great! Now, Press Any Button and Enjoy...");
+      document.querySelectorAll("button").forEach((button) => {
+        button.addEventListener("click", () => {
+          const action = button.getAttribute("data-action");
+      
+          if (action === "quiz") {
+            stopAllActions();
+            quizHandler();
+          } else if (action === "sums") {
+            stopAllActions();
+            sumsHandler();
+          } else if (action === "music") {
+            stopAllActions();
+            musicHandler();
+          } else if (action === "call") {
+            stopAllActions();
+            callHandler();
+          } else if (action === "call-off") {
+            stopAllActions();
+            callEndHandler();
+          } else if (action === "0") {
+            stopAllActions();
+            zeroHandler();
+          } else {
+            stopAllActions();
+            numberHandler(+action);
+          }
+        });
       });
-    })
+    }
   )
   .catch(function(error) {
   	// element could not enter fullscreen mode
