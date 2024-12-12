@@ -692,16 +692,6 @@ function cancelGame() {
 //  EVENT LISTENERS ////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////
 
-// Note on starting quiz and sums....
-// May be define a isGameOn boolean variable in global scope and initialize at false.
-// when game starts (quiz or sums) set the variable value to true.
-// and then depending on the boolean value handle the clicks differently
-// like when it's false call the handlers as usual for number keys.
-// and when it's true, and number keys are pressed call a function to check answer and give feedback.
-// (if any non number key is pressed and if game mode is on, game mode is set off and game is cancelled)
-// each of the game buttons (quiz or sums) presents one question and feedback and turns game mode off after that
-// so user has to press the game button again to be served next game.
-
 // Event listener for buttons
 displayMessage("Double Click Here To Enter Full Screen and Play");
 
