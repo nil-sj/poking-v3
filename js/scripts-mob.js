@@ -236,6 +236,18 @@ const quizQuestions = [
     answer: 4
   },
   {
+    item: "sun",
+    numberofitems: 1,
+    question: "How many suns in our solar system?",
+    answer: 1
+  },
+  {
+    item: "fox",
+    numberofitems: 4,
+    question: "How many foxes do you see?",
+    answer: 4
+  },
+  {
     item: "monkey",
     numberofitems: 1,
     question: "How many tails does a monkey have?",
@@ -704,6 +716,7 @@ element.requestFullscreen()
 
           if (isGameOn && (action === "music" || action === "call" || action === "call-off" || action === "quiz" || action === "sums")) {
             cancelGame();
+            stopAllActions();
           }
       
           if (action === "quiz") {
