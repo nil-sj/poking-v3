@@ -717,12 +717,14 @@ element.requestFullscreen()
 
           if (isGameOn && (action === "music" || action === "call" || action === "call-off" || action === "quiz" || action === "sums")) {
             cancelGame();
-            stopAllActions();
+            // stopAllActions();
           }
       
           if (action === "quiz") {
-            stopAllActions();
-            quizHandler();
+            const proceedWhenStoppedPrev = async (messages) => {
+              await stopAllActions(); // Ensure previous actions are fully stopped
+              quizHandler();
+            };
           } else if (action === "sums") {
             stopAllActions();
             sumsHandler();
