@@ -13,7 +13,7 @@ fsBtn.addEventListener("click", function() {
     element.requestFullscreen()
     .then(function() {
       document.getElementById("message").classList.add("move-up");
-      document.getElementById("message").textContent = "Press any key to play | Press Escape Key or " + keyCombination + " to exit";
+      document.getElementById("message").textContent = "Press any key to play | Press Escape Key or " + keyCombination + " to exit fullscreen";
 
       document.onkeydown = function (ev) {
         let current = "nono";
@@ -100,7 +100,7 @@ document.onkeydown = function (e) {
     element.requestFullscreen()
     .then(function() {
       document.getElementById("message").classList.add("move-up");
-      document.getElementById("message").textContent = "Press any key to play | Press Escape Key or " + keyCombination + " to exit";
+      document.getElementById("message").textContent = "Press any key to play | Press Escape Key or " + keyCombination + " to exit fullscreen";
 
       document.onkeydown = function (ev) {
         let current = "nono";

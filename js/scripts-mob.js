@@ -314,6 +314,36 @@ const quizQuestions = [
     answer: 4
   },
   {
+    item: "bird",
+    numberofitems: 1,
+    question: "How many wings does a bird have?",
+    answer: 2
+  },
+  {
+    item: "elephant",
+    numberofitems: 1,
+    question: "How many eyes does the elephant have?",
+    answer: 2
+  },
+  {
+    item: "pig",
+    numberofitems: 1,
+    question: "How many ears does the pig have?",
+    answer: 2
+  },
+  {
+    item: "bear",
+    numberofitems: 1,
+    question: "How many noses does the bear have?",
+    answer: 1
+  },
+  {
+    item: "sheep",
+    numberofitems: 1,
+    question: "How many bags full of wool does the sheep have in the poem baba black sheep?",
+    answer: 3
+  },
+  {
     item: "cat",
     numberofitems: 4,
     question: "How many cats are here?",
@@ -332,10 +362,28 @@ const quizQuestions = [
     answer: 7
   },
   {
+    item: "lion",
+    numberofitems: 1,
+    question: "How many legs does a lion have?",
+    answer: 4
+  },
+  {
+    item: "bird",
+    numberofitems: 1,
+    question: "How many legs does a bird have?",
+    answer: 2
+  },
+  {
     item: "cow",
     numberofitems: 2,
     question: "How many cows are grazing?",
     answer: 2
+  },
+  {
+    item: "pig",
+    numberofitems: 3,
+    question: "How many pigs are on the screen?",
+    answer: 3
   }
 ];
 
