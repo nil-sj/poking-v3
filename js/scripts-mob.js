@@ -574,12 +574,12 @@ const displayMessage = (message) => {
 ////////////////////////////////////////////////////////////////////
 
 function quizHandler() {
-  alert("Quiz");
+  alert("Quiz will come soon!");
   //displayMessage(["What animal is this?", "Can you count them?"]);
 }
 
 function sumsHandler() {
-  alert("Sums");
+  alert("Sums will come soon!");
   //displayMessage(["What is 2 + 3?", "Can you solve this?"]);
 }
 
