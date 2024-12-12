@@ -445,7 +445,7 @@ const generateGoodbye = () => ({
 
 let currentAudio = null; // Store reference to the currently playing audio
 
-const stopAllActions = () => {
+const stopAllActions = async () => {
   // Stop any ongoing audio playback
   if (currentAudio) {
     currentAudio.pause();
@@ -456,6 +456,7 @@ const stopAllActions = () => {
   // Stop any ongoing speech
   if ('speechSynthesis' in window) {
     speechSynthesis.cancel(); // Stop any ongoing speech
+    await new Promise(resolve => setTimeout(resolve, 100));
   }
 };
 
@@ -599,7 +600,6 @@ function displaySumQuestion(left, sign, right) {
 ////////////////////////////////////////////////////////////////////
 
 function quizHandler() {
-  stopAllActions();
   isGameOn = true;
 
   const quizQuestion = getRandomElement(quizQuestions);
@@ -609,7 +609,6 @@ function quizHandler() {
 }
 
 function sumsHandler() {
-  stopAllActions();
   isGameOn = true;
 
   const sumQuestion = generateSumQuestion();
