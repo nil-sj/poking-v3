@@ -1,3 +1,5 @@
+let isGameOn = false; // Indicates whether a game is currently in progress
+
 ////////////////////////////////////////////////////////////////////
 //  CONSTANTS //////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////// 
@@ -568,19 +570,50 @@ const displayMessage = (message) => {
   screenContent.appendChild(paragraph);
 };
 
+// Function to display sum questions
+function displaySumQuestion(left, sign, right) {
+  screenContent.innerHTML = `<div class='content-wrapper'>
+  <div class='content-box thirtythree sumq'>${left}</div>
+  <div class='content-box thirtythree sumq'>${sign}</div>
+  <div class='content-box thirtythree sumq'>${right}</div>
+  <div class='content-box thirtythree sumq'>=</div>
+  <div class='content-box thirtythree sumq'>?</div>
+  </div>`;
+}
+
 
 ////////////////////////////////////////////////////////////////////
 //  HANDLERS ///////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////
 
+// function quizHandler() {
+//   alert("Quiz will come soon!");
+//   //displayMessage(["What animal is this?", "Can you count them?"]);
+// }
+
 function quizHandler() {
-  alert("Quiz will come soon!");
-  //displayMessage(["What animal is this?", "Can you count them?"]);
+  if (isGameOn) return; // Prevent multiple games from being started
+  isGameOn = true;
+
+  const quizQuestion = getRandomElement(quizQuestions);
+  displayForNumbers(quizQuestion.numberofitems, quizQuestion.item);  
+  window.currentGameAnswer = quizQuestion.answer;
+  speakMessages([quizQuestion.question]);
 }
 
+// function sumsHandler() {
+//   alert("Sums will come soon!");
+//   //displayMessage(["What is 2 + 3?", "Can you solve this?"]);
+// }
+
 function sumsHandler() {
-  alert("Sums will come soon!");
-  //displayMessage(["What is 2 + 3?", "Can you solve this?"]);
+  if (isGameOn) return; // Prevent multiple games from being started
+  isGameOn = true;
+
+  const sumQuestion = generateSumQuestion();
+  displaySumQuestion(sumQuestion.left, sumQuestion.sign, sumQuestion.right);
+  window.currentGameAnswer = sumQuestion.answer;
+  speakMessages([sumQuestion.question]);
 }
 
 function musicHandler() {
@@ -616,23 +649,56 @@ function zeroHandler() {
 }
 
 function numberHandler(number) {
-  let numberData = getRandomElement(animalMessagesFor1to9);
-  let messages = []
-  if(number===1) {
-    messages[0] = `${convertNumberToWords(number)} ${numberData.adjective} ${numberData.animal}`;
-    messages[1] = `The ${numberData.animal} ${numberData.singleaction}`;
+  if (isGameOn) {
+    // Game mode: Check the answer
+    if (number === window.currentGameAnswer) {
+      displayContent("hundred", 1, "right");
+      speakMessages(["Correct!", `The answer is ${number}.`]);
+    } else {
+      displayContent("hundred", 1, "wrong");
+      speakMessages(["Oops!", "Try again next time!"]);
+    }
+    isGameOn = false; // End the game
+    delete window.currentGameAnswer; // Clear the answer
+  } else if (number === 0){
+    zeroHandler();
   } else {
-    messages[0] = `${convertNumberToWords(number)} ${numberData.adjective} ${numberData.animalplural}`;
-    messages[1] = `${numberData.animalplural} ${getRandomElement(numberData.pluralactions)}`;
+    // Regular mode: Handle number as usual
+    let numberData = getRandomElement(animalMessagesFor1to9);
+    let messages = [];
+    if (number === 1) {
+      messages[0] = `${convertNumberToWords(number)} ${numberData.adjective} ${numberData.animal}`;
+      messages[1] = `The ${numberData.animal} ${numberData.singleaction}`;
+    } else {
+      messages[0] = `${convertNumberToWords(number)} ${numberData.adjective} ${numberData.animalplural}`;
+      messages[1] = `${numberData.animalplural} ${getRandomElement(numberData.pluralactions)}`;
+    }
+    displayForNumbers(number, numberData.animal);
+    speakMessages(messages);
   }
-  displayForNumbers(number, numberData.animal);
-  speakMessages(messages);
+}
+
+function cancelGame() {
+  if (isGameOn) {
+    isGameOn = false;
+    delete window.currentGameAnswer;
+  }
 }
 
 
 ////////////////////////////////////////////////////////////////////
 //  EVENT LISTENERS ////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////
+
+// Note on starting quiz and sums....
+// May be define a isGameOn boolean variable in global scope and initialize at false.
+// when game starts (quiz or sums) set the variable value to true.
+// and then depending on the boolean value handle the clicks differently
+// like when it's false call the handlers as usual for number keys.
+// and when it's true, and number keys are pressed call a function to check answer and give feedback.
+// (if any non number key is pressed and if game mode is on, game mode is set off and game is cancelled)
+// each of the game buttons (quiz or sums) presents one question and feedback and turns game mode off after that
+// so user has to press the game button again to be served next game.
 
 // Event listener for buttons
 displayMessage("Double Click Here To Enter Full Screen and Play");
@@ -647,6 +713,10 @@ element.requestFullscreen()
       document.querySelectorAll("button").forEach((button) => {
         button.addEventListener("click", () => {
           const action = button.getAttribute("data-action");
+
+          if (isGameOn && (action === "music" || action === "call" || action === "call-off")) {
+            cancelGame();
+          }
       
           if (action === "quiz") {
             stopAllActions();
@@ -663,9 +733,6 @@ element.requestFullscreen()
           } else if (action === "call-off") {
             stopAllActions();
             callEndHandler();
-          } else if (action === "0") {
-            stopAllActions();
-            zeroHandler();
           } else {
             stopAllActions();
             numberHandler(+action);

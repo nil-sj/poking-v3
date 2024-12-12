@@ -70,6 +70,12 @@ body {
   width: 28%;
 }
 
+.sumq {
+  color: white;
+  font-size: 36px;
+  font-weight: 700;
+}
+
 .buttons {
   flex: 3;
   display: grid;
