@@ -291,15 +291,15 @@ const quizQuestions = [
   },
   {
     item: "cloud",
-    numberofitems: 5,
+    numberofitems: 3,
     question: "How many clouds are floating in the sky?",
-    answer: 5
+    answer: 6
   },
   {
     item: "balloon",
     numberofitems: 2,
     question: "How many balloons are flying up?",
-    answer: 2
+    answer: 4
   },
   {
     item: "cat",
@@ -586,13 +586,7 @@ function displaySumQuestion(left, sign, right) {
 //  HANDLERS ///////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////
 
-// function quizHandler() {
-//   alert("Quiz will come soon!");
-//   //displayMessage(["What animal is this?", "Can you count them?"]);
-// }
-
 function quizHandler() {
-  if (isGameOn) return; // Prevent multiple games from being started
   isGameOn = true;
 
   const quizQuestion = getRandomElement(quizQuestions);
@@ -601,13 +595,7 @@ function quizHandler() {
   speakMessages([quizQuestion.question]);
 }
 
-// function sumsHandler() {
-//   alert("Sums will come soon!");
-//   //displayMessage(["What is 2 + 3?", "Can you solve this?"]);
-// }
-
 function sumsHandler() {
-  if (isGameOn) return; // Prevent multiple games from being started
   isGameOn = true;
 
   const sumQuestion = generateSumQuestion();
@@ -714,7 +702,7 @@ element.requestFullscreen()
         button.addEventListener("click", () => {
           const action = button.getAttribute("data-action");
 
-          if (isGameOn && (action === "music" || action === "call" || action === "call-off")) {
+          if (isGameOn && (action === "music" || action === "call" || action === "call-off" || action === "quiz" || action === "sums")) {
             cancelGame();
           }
       
