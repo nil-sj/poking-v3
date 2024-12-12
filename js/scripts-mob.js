@@ -376,7 +376,7 @@ function generateSumQuestion() {
     { sign: "+", operation: (a, b) => a + b, words: "plus" },
     { sign: "-", operation: (a, b) => a - b, words: "minus" },
     { sign: "×", operation: (a, b) => a * b, words: "times" },
-    { sign: "÷", operation: (a, b) => Math.floor(a / b), words: "divided by" }
+    { sign: "÷", operation: (a, b) => a % b == 0 ? Math.round(a / b) : -1, words: "divided by" }
   ];
 
   // Randomly select an operation
