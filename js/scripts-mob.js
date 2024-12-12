@@ -445,7 +445,7 @@ const generateGoodbye = () => ({
 
 let currentAudio = null; // Store reference to the currently playing audio
 
-const stopAllActions = async () => {
+const stopAllActions = () => {
   // Stop any ongoing audio playback
   if (currentAudio) {
     currentAudio.pause();
@@ -456,7 +456,6 @@ const stopAllActions = async () => {
   // Stop any ongoing speech
   if ('speechSynthesis' in window) {
     speechSynthesis.cancel(); // Stop any ongoing speech
-    await new Promise(resolve => setTimeout(resolve, 100));
   }
 };
 
@@ -721,10 +720,8 @@ element.requestFullscreen()
           }
       
           if (action === "quiz") {
-            const proceedWhenStoppedPrev = async (messages) => {
-              await stopAllActions(); // Ensure previous actions are fully stopped
+              stopAllActions(); 
               quizHandler();
-            };
           } else if (action === "sums") {
             stopAllActions();
             sumsHandler();
