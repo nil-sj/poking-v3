@@ -703,51 +703,53 @@ function cancelGame() {
 // so user has to press the game button again to be served next game.
 
 // Event listener for buttons
-displayMessage("Double Click Here To Enter Full Screen and Play");
+document.addEventListener("DOMContentLoaded", () => {
+  displayMessage("Double Click Here To Enter Full Screen and Play");
 
-document.addEventListener("dblclick", function(event) {
+  document.addEventListener("dblclick", function(event) {
 
-var element = document.querySelector(".toy-mobile");
-
-element.requestFullscreen()
-  .then(() => {
-      displayMessage("Great! Now, Press Any Button and Enjoy...");
-      document.querySelectorAll("button").forEach((button) => {
-        button.addEventListener("click", () => {
-          const action = button.getAttribute("data-action");
-
-          if (isGameOn && (action === "music" || action === "call" || action === "call-off" || action === "quiz" || action === "sums")) {
-            cancelGame();
-          }
-      
-          if (action === "quiz") {
-              stopAllActions(); 
-              quizHandler();
-          } else if (action === "sums") {
-            stopAllActions();
-            sumsHandler();
-          } else if (action === "music") {
-            stopAllActions();
-            musicHandler();
-          } else if (action === "call") {
-            stopAllActions();
-            callHandler();
-          } else if (action === "call-off") {
-            stopAllActions();
-            callEndHandler();
-          } else {
-            stopAllActions();
-            numberHandler(+action);
-          }
-        });
+    var element = document.querySelector(".toy-mobile");
+    
+    element.requestFullscreen()
+      .then(() => {
+          displayMessage("Great! Now, Press Any Button and Enjoy...");
+          document.querySelectorAll("button").forEach((button) => {
+            button.addEventListener("click", () => {
+              const action = button.getAttribute("data-action");
+    
+              if (isGameOn && (action === "music" || action === "call" || action === "call-off" || action === "quiz" || action === "sums")) {
+                cancelGame();
+              }
+          
+              if (action === "quiz") {
+                  stopAllActions(); 
+                  quizHandler();
+              } else if (action === "sums") {
+                stopAllActions();
+                sumsHandler();
+              } else if (action === "music") {
+                stopAllActions();
+                musicHandler();
+              } else if (action === "call") {
+                stopAllActions();
+                callHandler();
+              } else if (action === "call-off") {
+                stopAllActions();
+                callEndHandler();
+              } else {
+                stopAllActions();
+                numberHandler(+action);
+              }
+            }, { once: true });
+          });
+        }
+      )
+      .catch(function(error) {
+        // element could not enter fullscreen mode
+        // error message
+        console.log(error.message);
+        alert("error");
       });
-    }
-  )
-  .catch(function(error) {
-  	// element could not enter fullscreen mode
-  	// error message
-  	console.log(error.message);
-    alert("error");
-  });
-
-}, false);
+    
+    }, false);
+});
