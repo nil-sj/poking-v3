@@ -600,7 +600,7 @@ function displaySumQuestion(left, sign, right) {
 
 function quizHandler() {
   isGameOn = true;
-
+  stopAllActions();
   const quizQuestion = getRandomElement(quizQuestions);
   displayForNumbers(quizQuestion.numberofitems, quizQuestion.item);  
   window.currentGameAnswer = quizQuestion.answer;
@@ -716,7 +716,6 @@ element.requestFullscreen()
 
           if (isGameOn && (action === "music" || action === "call" || action === "call-off" || action === "quiz" || action === "sums")) {
             cancelGame();
-            // stopAllActions();
           }
       
           if (action === "quiz") {
