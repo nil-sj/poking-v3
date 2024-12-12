@@ -654,11 +654,11 @@ function numberHandler(number) {
   if (isGameOn) {
     // Game mode: Check the answer
     if (number === window.currentGameAnswer) {
+      speakMessages([`Correct!, The answer is ${number}.`]);
       displayContent("hundred", 1, "right");
-      speakMessages(["Correct!", `The answer is ${number}.`]);
     } else {
+      speakMessages(["Oops! Try again next time!"]);
       displayContent("hundred", 1, "wrong");
-      speakMessages(["Oops!", "Try again next time!"]);
     }
     isGameOn = false; // End the game
     delete window.currentGameAnswer; // Clear the answer
