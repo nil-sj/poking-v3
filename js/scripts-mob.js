@@ -599,6 +599,7 @@ function displaySumQuestion(left, sign, right) {
 ////////////////////////////////////////////////////////////////////
 
 function quizHandler() {
+  stopAllActions();
   isGameOn = true;
 
   const quizQuestion = getRandomElement(quizQuestions);
@@ -608,6 +609,7 @@ function quizHandler() {
 }
 
 function sumsHandler() {
+  stopAllActions();
   isGameOn = true;
 
   const sumQuestion = generateSumQuestion();
