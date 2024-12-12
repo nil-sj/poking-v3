@@ -67,7 +67,7 @@ fsBtn.addEventListener("click", function() {
         }
 
         //play the current audio
-        const currentAudioFile = "audio" + current + ".mp3";
+        const currentAudioFile = `audio/${current}.mp3`;
         const currentAudio = new Audio(currentAudioFile);
         currentAudio.play();
 
@@ -154,7 +154,7 @@ document.onkeydown = function (e) {
         }
 
         //play the current audio
-        const currentAudioFile = "audio" + current + ".mp3";
+        const currentAudioFile = `audio/${current}.mp3`;
         const currentAudio = new Audio(currentAudioFile);
         currentAudio.play();
 
