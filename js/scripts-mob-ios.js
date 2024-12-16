@@ -979,6 +979,7 @@ const speakMessagesAndPlaySound = (messages, soundFile) => {
 function speakMessages(messageParts) {
   if (!('speechSynthesis' in window)) {
     console.error("Web Speech API is not supported in this browser.");
+    alert("Speech API not supported");
     return;
   }
 
@@ -1000,6 +1001,16 @@ function speakMessages(messageParts) {
 
   speakSequentially();
 }
+
+// Speech API compatibility
+// function speakMessage(message) {
+//   if ('speechSynthesis' in window) {
+//     const utterance = new SpeechSynthesisUtterance(message);
+//     speechSynthesis.speak(utterance);
+//   } else {
+//     alert("Speech API is not supported on your device.");
+//   }
+// }
 
 // Screen and buttons functionality
 const screenContent = document.getElementById("screen-content");
@@ -1172,7 +1183,7 @@ function cancelGame() {
 
 // Event listener for buttons
 document.querySelector(".toy-mobile").requestFullscreen?.() || 
-  alert("Fullscreen mode is not supported on this browser.");
+  alert("Fullscreen mode is not supported on this browser. Yet you can use it.");
 
 startSteps();  
 
