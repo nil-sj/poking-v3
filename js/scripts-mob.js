@@ -6,12 +6,27 @@ let isGameOn = false; // Indicates whether a game is currently in progress
 
 // Datasets for objects, animals, their images, and sound files
 
-const animals = ["bear", "bird", "cat", "chicken", "cow", "dog", "duck", "fish", "fox", "horse", "lion", "monkey", "mouse", "octopus", "pig", "sheep"];
+const animals = ["bear", "bird", "cat", "chicken", "cow", "dog", "duck", "fish", "fox", "horse", "lion", "monkey", "mouse", "octopus", "pig", "sheep", "owl", "snake", "frog"];
 const rings = ["ring1-old-phone.mp3", "ring2-telephone-dial-and-ring.mp3", "ring3-telephone-ring.mp3", "ring4-phone-ringing.mp3", "ring5-classic-telefone.mp3"];
 const notAvailable = "not-available.mp3";
 const calloffSounds = ["end-call1.mp3", "end-call2.mp3", "end-call3.mp3", "end-call4.mp3"];
 const tunes = ["baa-baa-black-sheep.mp3", "happy-birthday-to-you.mp3", "mary-had-a-little-lamb.mp3", "old-macdonald-had-a-farm.mp3", "twinkle-twinkle-little-star.mp3"];
-
+const animalSounds = [
+  { bird: "chirp" },
+  { cat: "meow" },
+  { chicken: "cluck" },
+  { cow: "moo" },
+  { dog: "woof" },
+  { duck: "quack" },
+  { horse: "neigh" },
+  { lion: "roar" },
+  { monkey: "screech" },
+  { pig: "oink" },
+  { sheep: "baa" },
+  { owl: "hoot" },
+  { snake: "hiss" },
+  { frog: "ribbit" }
+];
 
 // Datasets for response messages or questions
 
@@ -487,6 +502,45 @@ const generateGoodbye = () => ({
   message: getRandomElement(partingMessages)
 });
 
+// Function to shuffle an array
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1)); // Pick a random index
+    [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+  }
+  return array;
+}
+
+// Function to generate animal sound question data
+function generateAnimalSoundOptions() {
+  const soundSet = getRandomElement(animalSounds);
+  const soundAnimal = Object.keys(soundSet)[0];
+  const optionsArray = [soundAnimal];
+  let counter = 1;
+  while (counter < 4) {
+    const randomPick = getRandomElement(animals)
+    if (!optionsArray.includes(randomPick)) {
+      optionsArray.push(randomPick);
+      counter++;
+    }
+  }
+
+  const shuffledAnimals = shuffleArray(optionsArray);
+  
+  const questionText = `Which of these animals says ${soundSet[soundAnimal]} ${soundSet[soundAnimal]}?`;
+  const questionOptions = [];
+  let answer;
+  shuffledAnimals.forEach((animal, index) => {
+    questionOptions.push({ serial: index + 1, item: animal });
+    if (animal === soundAnimal) {
+      answer = index + 1; // Record the correct answer's position
+    }
+  });
+  const answerText = soundAnimal;
+
+  return { questionText, questionOptions, answer, answerText };
+}
+
 ////////////////////////////////////////////////////////////////////
 //  RESPONDERS /////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////
@@ -641,6 +695,16 @@ function displaySumQuestion(left, sign, right) {
   </div>`;
 }
 
+// Function to display pickQuestions for Quiz
+function displayPickQuestion(questionArray) {
+  let htmlCode = `<div class='content-wrapper'>`
+  questionArray.forEach((option) => {
+    htmlCode += `<div class='content-box fifty'><div class='number-box'>${option.serial}</div><img src='../img/${option.item}.png' alt='${option.item}' class='content-item'></div>`;
+  });
+  htmlCode += `</div>`;
+  screenContent.innerHTML = htmlCode;
+}
+
 
 ////////////////////////////////////////////////////////////////////
 //  HANDLERS ///////////////////////////////////////////////////////
@@ -651,10 +715,20 @@ function quizHandler() {
   if ('speechSynthesis' in window) {
     speechSynthesis.cancel(); // Stop any ongoing speech
   }
-  const quizQuestion = getRandomElement(quizQuestions);
-  displayForNumbers(quizQuestion.numberofitems, quizQuestion.item);  
-  window.currentGameAnswer = quizQuestion.answer;
-  speakMessages([quizQuestion.question]);
+  if (Math.random() < 0.7) {
+    const quizQuestion = getRandomElement(quizQuestions);
+    displayForNumbers(quizQuestion.numberofitems, quizQuestion.item);  
+    window.currentGameAnswer = quizQuestion.answer;
+    window.currentGameAnswerText = null;
+    speakMessages([quizQuestion.question]);
+  } else {
+    const pickQuestion = generateAnimalSoundOptions;
+    displayPickQuestion(pickQuestion.questionOptions);
+    window.currentGameAnswer = pickQuestion.answer;
+    window.currentGameAnswerText = pickQuestion.answerText;    
+    speakMessages([pickQuestion.questionText]);
+  }
+  
 }
 
 function sumsHandler() {
@@ -663,6 +737,7 @@ function sumsHandler() {
   const sumQuestion = generateSumQuestion();
   displaySumQuestion(sumQuestion.left, sumQuestion.sign, sumQuestion.right);
   window.currentGameAnswer = sumQuestion.answer;
+  window.currentGameAnswerText = null;
   speakMessages([sumQuestion.question]);
 }
 
@@ -702,7 +777,7 @@ function numberHandler(number) {
   if (isGameOn) {
     // Game mode: Check the answer
     if (number === window.currentGameAnswer) {
-      speakMessages([`Correct!, The answer is ${number}.`]);
+      speakMessages(currentGameAnswerText ? [`Correct!, The answer is ${currentGameAnswerText}.`] : [`Correct!, The answer is ${number}.`]);
       displayContent("hundred", 1, "right");
     } else {
       speakMessages(["Oops! Try again next time!"]);
@@ -710,6 +785,7 @@ function numberHandler(number) {
     }
     isGameOn = false; // End the game
     delete window.currentGameAnswer; // Clear the answer
+    window.currentGameAnswerText = null;
   } else if (number === 0){
     zeroHandler();
   } else {
@@ -732,6 +808,7 @@ function cancelGame() {
   if (isGameOn) {
     isGameOn = false;
     delete window.currentGameAnswer;
+    window.currentGameAnswerText = null;
   }
 }
 
