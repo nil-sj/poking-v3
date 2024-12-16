@@ -6,7 +6,7 @@ let isGameOn = false; // Indicates whether a game is currently in progress
 
 // Datasets for objects, animals, their images, and sound files
 
-const animals = ["bear", "bird", "cat", "chicken", "cow", "dog", "duck", "fish", "fox", "horse", "lion", "monkey", "mouse", "octopus", "pig", "sheep", "owl", "snake", "frog"];
+const animals = ["bear", "bird", "cat", "chicken", "cow", "dog", "duck", "fish", "fox", "horse", "lion", "monkey", "mouse", "octopus", "pig", "sheep", "owl", "snake", "frog", "alligator", "bat", "bison", "butterfly", "camel", "crab", "giraffe", "goat", "hippo", "kangaroo", "koala", "panda", "penguin", "porcupine", "raccoon", "rhino", "salamander", "seahorse", "shark", "skunk"];
 const rings = ["ring1-old-phone.mp3", "ring2-telephone-dial-and-ring.mp3", "ring3-telephone-ring.mp3", "ring4-phone-ringing.mp3", "ring5-classic-telefone.mp3"];
 const notAvailable = "not-available.mp3";
 const calloffSounds = ["end-call1.mp3", "end-call2.mp3", "end-call3.mp3", "end-call4.mp3"];
@@ -273,6 +273,226 @@ const animalMessagesFor1to9 = [
       "slither on the ground",
       "hide under rocks"
     ]
+  },
+  {
+    animal: "alligator",
+    animalplural: "alligators",
+    adjective: "scaly",
+    singleaction: "snaps its jaws",
+    pluralactions: [
+      "snap their jaws",
+      "swim in rivers",
+      "bask in the sun"
+    ]
+  },
+  {
+    animal: "bat",
+    animalplural: "bats",
+    adjective: "nocturnal",
+    singleaction: "hangs upside down",
+    pluralactions: [
+      "hang upside down",
+      "fly at night",
+      "use echolocation"
+    ]
+  },
+  {
+    animal: "bison",
+    animalplural: "bison",
+    adjective: "majestic",
+    singleaction: "grazes on grass",
+    pluralactions: [
+      "graze on grass",
+      "roam the plains",
+      "charge when threatened"
+    ]
+  },
+  {
+    animal: "butterfly",
+    animalplural: "butterflies",
+    adjective: "colorful",
+    singleaction: "flutters its wings",
+    pluralactions: [
+      "flutter their wings",
+      "sip nectar from flowers",
+      "brighten the garden"
+    ]
+  },
+  {
+    animal: "camel",
+    animalplural: "camels",
+    adjective: "humpy",
+    singleaction: "stores water in its hump",
+    pluralactions: [
+      "store water in their humps",
+      "walk across deserts",
+      "carry heavy loads"
+    ]
+  },
+  {
+    animal: "crab",
+    animalplural: "crabs",
+    adjective: "claw-some",
+    singleaction: "walks sideways",
+    pluralactions: [
+      "walk sideways",
+      "pinch with their claws",
+      "hide in sandy burrows"
+    ]
+  },
+  {
+    animal: "giraffe",
+    animalplural: "giraffes",
+    adjective: "tall",
+    singleaction: "reaches high leaves",
+    pluralactions: [
+      "reach high leaves",
+      "have long necks",
+      "run gracefully"
+    ]
+  },
+  {
+    animal: "goat",
+    animalplural: "goats",
+    adjective: "horned",
+    singleaction: "chews on leaves",
+    pluralactions: [
+      "chew on leaves",
+      "climb steep hills",
+      "say baa baa"
+    ]
+  },
+  {
+    animal: "hippo",
+    animalplural: "hippos",
+    adjective: "chunky",
+    singleaction: "sits in the water",
+    pluralactions: [
+      "sit in the water",
+      "open their mouths wide",
+      "wallow in mud"
+    ]
+  },
+  {
+    animal: "kangaroo",
+    animalplural: "kangaroos",
+    adjective: "bouncy",
+    singleaction: "jumps on its strong legs",
+    pluralactions: [
+      "jump on their strong legs",
+      "carry babies in their pouches",
+      "hop across fields"
+    ]
+  },
+  {
+    animal: "koala",
+    animalplural: "koalas",
+    adjective: "cuddly",
+    singleaction: "eats eucalyptus leaves",
+    pluralactions: [
+      "eat eucalyptus leaves",
+      "sleep in trees",
+      "cling to branches"
+    ]
+  },
+  {
+    animal: "panda",
+    animalplural: "pandas",
+    adjective: "adorable",
+    singleaction: "munches on bamboo",
+    pluralactions: [
+      "munch on bamboo",
+      "roll around playfully",
+      "rest in the shade"
+    ]
+  },
+  {
+    animal: "penguin",
+    animalplural: "penguins",
+    adjective: "waddly",
+    singleaction: "waddles on ice",
+    pluralactions: [
+      "waddle on ice",
+      "slide on their bellies",
+      "huddle to stay warm"
+    ]
+  },
+  {
+    animal: "porcupine",
+    animalplural: "porcupines",
+    adjective: "spiky",
+    singleaction: "raises its quills",
+    pluralactions: [
+      "raise their quills",
+      "roll into balls",
+      "eat bark and leaves"
+    ]
+  },
+  {
+    animal: "raccoon",
+    animalplural: "raccoons",
+    adjective: "sneaky",
+    singleaction: "looks for food in bins",
+    pluralactions: [
+      "look for food in bins",
+      "wash their food",
+      "hide in the trees"
+    ]
+  },
+  {
+    animal: "rhino",
+    animalplural: "rhinos",
+    adjective: "strong",
+    singleaction: "has a big horn",
+    pluralactions: [
+      "have big horns",
+      "charge when angry",
+      "graze on grass"
+    ]
+  },
+  {
+    animal: "salamander",
+    animalplural: "salamanders",
+    adjective: "slimy",
+    singleaction: "lives in moist places",
+    pluralactions: [
+      "live in moist places",
+      "crawl slowly",
+      "regrow their tails"
+    ]
+  },
+  {
+    animal: "seahorse",
+    animalplural: "seahorses",
+    adjective: "tiny",
+    singleaction: "swims upright",
+    pluralactions: [
+      "swim upright",
+      "cling to coral",
+      "have curly tails"
+    ]
+  },
+  {
+    animal: "shark",
+    animalplural: "sharks",
+    adjective: "sharp-toothed",
+    singleaction: "has lots of sharp teeth",
+    pluralactions: [
+      "have lots of sharp teeth",
+      "swim very fast",
+      "hunt in the deep sea"
+    ]
+  },
+  {
+    animal: "skunk",
+    animalplural: "skunks",
+    adjective: "stinky",
+    singleaction: "sprays a smelly scent",
+    pluralactions: [
+      "spray a smelly scent",
+      "waddle through the woods",
+      "dig for insects"
+    ]
   }
 ];
 
@@ -450,6 +670,66 @@ const quizQuestions = [
     numberofitems: 3,
     question: "How many pigs are on the screen?",
     answer: 3
+  },
+  {
+    item: "bat",
+    numberofitems: 1,
+    question: "How many wings does a bat have?",
+    answer: 2
+  },
+  {
+    item: "bison",
+    numberofitems: 1,
+    question: "How many horns does a bison have?",
+    answer: 2
+  },
+  {
+    item: "butterfly",
+    numberofitems: 1,
+    question: "How many wings does a butterfly have?",
+    answer: 4
+  },
+  {
+    item: "camel",
+    numberofitems: 1,
+    question: "How many humps does a Bactrian camel have? the one you see on screen.",
+    answer: 2
+  },
+  {
+    item: "crab",
+    numberofitems: 1,
+    question: "How many claws does a crab have?",
+    answer: 2
+  },
+  {
+    item: "giraffe",
+    numberofitems: 1,
+    question: "How many legs does a giraffe have?",
+    answer: 4
+  },
+  {
+    item: "kangaroo",
+    numberofitems: 1,
+    question: "How many legs does a kangaroo use to hop?",
+    answer: 2
+  },
+  {
+    item: "penguin",
+    numberofitems: 1,
+    question: "How many wings does a penguin have?",
+    answer: 2
+  },
+  {
+    item: "rhino",
+    numberofitems: 1,
+    question: "How many horns does a rhinoceros typically have?",
+    answer: 1
+  },
+  {
+    item: "seahorse",
+    numberofitems: 1,
+    question: "How many fins does a seahorse have?",
+    answer: 2
   }
 ];
 
@@ -463,7 +743,19 @@ const conversationMessages = [
   ["Hello friend,", "What's your favorite color?"],
   ["Hey buddy,", "Do you want to hear a joke?"],
   ["Hiya!", "Did you know you're my favorite caller?"],
-  ["Hello!", "I've missed you!", "How's your day going?"]
+  ["Hello!", "I've missed you!", "How's your day going?"],
+  ["Hi there!", "What's the most exciting thing you've done today?"],
+  ["Hey!", "Guess who was just thinking about you?", "Yes, your guess is right, it's me."],
+  ["Hello, my friend!", "Do you want to play a guessing game?", "Ok, guess my name."],
+  ["Hi!", "Did you learn something new today?", "Tell me about it."],
+  ["Hello!", "Can I tell you a fun fact?", "You'll love it!", "Octopuses have three hearts."],
+  ["Hey!", "Want to know a fun fact", "Ok!", "Butterflies taste with their feet."],
+  ["Hi!", "Do you know this fun fact?", "Sloths can hold their breath longer than dolphins."],
+  ["Hey buddy!", "If you could be an animal, which one would you be?"],
+  ["Hi there!", "What's your favorite thing to do on a sunny day?"],
+  ["Hello, Hello!", "What would you do if you found a treasure chest?"],
+  ["Hey!", "What's your favorite food?"],
+  ["Hiya!", "Want to hear something cool?", "I just thought of you!"]
 ];
 
 const partingMessages = [
@@ -476,7 +768,17 @@ const partingMessages = [
   ["Catch you later!", "Keep being amazing!"],
   ["Bye-bye!", "Have a fantastic day!"],
   ["Adios!", "Remember to call me again!"],
-  ["Alright, bye!", "Don't forget to tell me something fun next time!"]
+  ["Alright, bye!", "Don't forget to tell me something fun next time!"],
+  ["Goodbye!", "Have a great day!", "You're the best!"],
+  ["Bye for now!", "Stay curious and keep smiling!"],
+  ["See you later!", "And remember, you're awesome!"],
+  ["Alright then,", "Take care and call me soon again!"],
+  ["Goodbye!", "Think of something fun to share next time!"],
+  ["Bye-bye!", "Don't forget to laugh today!"],
+  ["Catch you later!", "And remember, you're one of a kind!"],
+  ["Adios, my friend!", "Call me anytime!"],
+  ["Goodbye for now!", "Stay happy and adventurous!"],
+  ["Alright, bye!", "Can't wait to hear from you again!"]
 ];
 
 ////////////////////////////////////////////////////////////////////
