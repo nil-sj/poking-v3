@@ -15,14 +15,20 @@ if (isMobileDevice) {
     document.querySelector(".alt-way").classList.add("hide");
     document.querySelector(".command").classList.add("hide");
 
+    function detectDeviceAndRedirect() {
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    
+      if (/android/i.test(userAgent)) {
+        window.location.href = "play-mob.html";
+      } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+        window.location.href = "play-mob-ios.html";
+      } else {
+        document.getElementById("instruction").textContent = "Oops! Seems we can not suppot your mobile devive";
+      }
+    }
     document.querySelector(".btn").addEventListener("click", function(event) {
-      window.location.href = "play-mob.html";
+      detectDeviceAndRedirect();      
     });
-
-    window.addEventListener("dblclick", function(event) {
-      window.location.href = "play-mob.html";
-    }, false);
-
 } else {
     document.getElementById("instruction").textContent = "Let your kiddo press a random key on your keyboard and discover a favorite cartoon animal. You can press " + keyCombination + " to get into or exit out of the fullscreen mode.";
 
