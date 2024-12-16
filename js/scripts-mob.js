@@ -240,6 +240,39 @@ const animalMessagesFor1to9 = [
       "give us wool",
       "like to graze on grass"
     ]
+  },
+  {
+    animal: "owl",
+    animalplural: "owls",
+    adjective: "wise",
+    singleaction: "says hoo hoo softly",
+    pluralactions: [
+      "say hoo hoo softly",
+      "stay awake at night",
+      "turn their heads all around"
+    ]
+  },
+  {
+    animal: "frog",
+    animalplural: "frogs",
+    adjective: "bouncy",
+    singleaction: "says ribbit ribbit",
+    pluralactions: [
+      "say ribbit ribbit",
+      "jump high",
+      "sit on lily pads"
+    ]
+  },
+  {
+    animal: "snake",
+    animalplural: "snakes",
+    adjective: "slithery",
+    singleaction: "hisses softly",
+    pluralactions: [
+      "hiss softly",
+      "slither on the ground",
+      "hide under rocks"
+    ]
   }
 ];
 
@@ -255,6 +288,24 @@ const quizQuestions = [
     numberofitems: 1,
     question: "How many suns in our solar system?",
     answer: 1
+  },
+  {
+    item: "snake",
+    numberofitems: 1,
+    question: "How many legs does a snake have?",
+    answer: 0
+  },
+  {
+    item: "owl",
+    numberofitems: 5,
+    question: "How many owls do you see?",
+    answer: 5
+  },
+  {
+    item: "frog",
+    numberofitems: 2,
+    question: "How many frogs do you see?",
+    answer: 2
   },
   {
     item: "fox",
