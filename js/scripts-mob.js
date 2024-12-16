@@ -722,7 +722,7 @@ function quizHandler() {
     window.currentGameAnswerText = null;
     speakMessages([quizQuestion.question]);
   } else {
-    const pickQuestion = generateAnimalSoundOptions;
+    const pickQuestion = generateAnimalSoundOptions();
     displayPickQuestion(pickQuestion.questionOptions);
     window.currentGameAnswer = pickQuestion.answer;
     window.currentGameAnswerText = pickQuestion.answerText;    
