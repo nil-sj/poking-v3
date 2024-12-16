@@ -980,22 +980,13 @@ function speakMessages(messageParts) {
   const message = messageParts.join(" ");
   if ('speechSynthesis' in window) {
     const utterance = new SpeechSynthesisUtterance(message);
+    alert("will speak now.");
     speechSynthesis.speak(utterance);
   } else {
       console.error("Web Speech API is not supported in this browser.");
       alert("Speech API is not supported on your device.");
   }
 }
-
-// Speech API compatibility
-// function speakMessage(message) {
-//   if ('speechSynthesis' in window) {
-//     const utterance = new SpeechSynthesisUtterance(message);
-//     speechSynthesis.speak(utterance);
-//   } else {
-//     alert("Speech API is not supported on your device.");
-//   }
-// }
 
 // Screen and buttons functionality
 const screenContent = document.getElementById("screen-content");
