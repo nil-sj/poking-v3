@@ -977,29 +977,14 @@ const speakMessagesAndPlaySound = (messages, soundFile) => {
 
 // Functions to read a message array
 function speakMessages(messageParts) {
-  if (!('speechSynthesis' in window)) {
-    console.error("Web Speech API is not supported in this browser.");
-    alert("Speech API not supported");
-    return;
+  const message = messageParts.join(" ");
+  if ('speechSynthesis' in window) {
+    const utterance = new SpeechSynthesisUtterance(message);
+    speechSynthesis.speak(utterance);
+  } else {
+      console.error("Web Speech API is not supported in this browser.");
+      alert("Speech API is not supported on your device.");
   }
-
-  // Function to speak a single message part
-  const speakPart = (part, delay) => {
-    return new Promise((resolve) => {
-      const utterance = new SpeechSynthesisUtterance(part);
-      utterance.onend = () => setTimeout(resolve, delay);
-      speechSynthesis.speak(utterance);
-    });
-  };
-
-  // Speak each message part sequentially with pauses
-  const speakSequentially = async () => {
-    for (const part of messageParts) {
-      await speakPart(part, 500); // 500ms pause between parts
-    }
-  };
-
-  speakSequentially();
 }
 
 // Speech API compatibility
