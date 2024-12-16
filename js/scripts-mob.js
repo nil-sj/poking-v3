@@ -715,7 +715,7 @@ function quizHandler() {
   if ('speechSynthesis' in window) {
     speechSynthesis.cancel(); // Stop any ongoing speech
   }
-  if (Math.random() < 0.7) {
+  if (Math.random() < 0.1) {
     const quizQuestion = getRandomElement(quizQuestions);
     displayForNumbers(quizQuestion.numberofitems, quizQuestion.item);  
     window.currentGameAnswer = quizQuestion.answer;
