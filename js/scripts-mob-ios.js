@@ -980,7 +980,8 @@ function speakMessages(messageParts) {
   const message = messageParts.join(" ");
   if ('speechSynthesis' in window) {
     const utterance = new SpeechSynthesisUtterance(message);
-    alert("will speak now.");
+    utterance.lang = "en-US";
+    alert("speaking now.");
     speechSynthesis.speak(utterance);
   } else {
       console.error("Web Speech API is not supported in this browser.");
